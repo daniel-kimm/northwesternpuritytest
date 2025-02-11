@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './NorthwesternPurityTest.css';
 import logo from './assets/northwestern-university.svg';
+import { Analytics } from "@vercel/analytics/react";
 
 const NorthwesternPurityTest = () => {
   const prompts = [
@@ -106,83 +107,84 @@ const NorthwesternPurityTest = () => {
     "Go to the best school in the world 💜"
   ];
 
- const [selectedPrompts, setSelectedPrompts] = useState([]);
- const [showResults, setShowResults] = useState(false);
+  const [selectedPrompts, setSelectedPrompts] = useState([]);
+  const [showResults, setShowResults] = useState(false);
 
- const togglePrompt = (prompt) => {
-   setSelectedPrompts(prev => 
-     prev.includes(prompt) 
-       ? prev.filter(p => p !== prompt)
-       : [...prev, prompt]
-   );
- };
+  const togglePrompt = (prompt) => {
+    setSelectedPrompts(prev => 
+      prev.includes(prompt) 
+        ? prev.filter(p => p !== prompt)
+        : [...prev, prompt]
+    );
+  };
 
- const calculatePurityScore = () => {
-   return Math.round((1 - selectedPrompts.length / prompts.length) * 100);
- };
+  const calculatePurityScore = () => {
+    return Math.round((1 - selectedPrompts.length / prompts.length) * 100);
+  };
 
- const resetTest = () => {
-   setSelectedPrompts([]);
-   setShowResults(false);
- };
+  const resetTest = () => {
+    setSelectedPrompts([]);
+    setShowResults(false);
+  };
 
- return (
-   <div className="container">
-     <div className="card">
-       <div className="header">
-         <h2>Northwestern Purity Test</h2>
-         <img src={logo} alt="Northwestern Logo" className="logo" />
-       </div>
-       <div className="content">
-         {!showResults ? (
-           <div>
-             <p className="instructions">
-               Check off each prompt that applies to you. The fewer checked, the higher your "purity" score!
-             </p>
-             <div className="prompts-grid">
-               {prompts.map((prompt, index) => (
-                 <label key={index} className="prompt-item">
-                   <span className="prompt-number">{index + 1}.</span>
-                   <input
-                     type="checkbox"
-                     checked={selectedPrompts.includes(prompt)}
-                     onChange={() => togglePrompt(prompt)}
-                   />
-                   <span>{prompt}</span>
-                 </label>
-               ))}
-             </div>
-           </div>
-         ) : (
-           <div className="results">
-             <h2>Your Northwestern Purity Score</h2>
-             <div className="score">{calculatePurityScore()}</div>
-             <p>Out of {prompts.length} total Northwestern experiences</p>
-             <div className="checked-items">
-               <h3>Your checked experiences:</h3>
-               <div className="checked-list">
-                 {selectedPrompts.map((prompt, index) => (
-                   <div key={index} className="checked-item">{prompt}</div>
-                 ))}
-               </div>
-             </div>
-           </div>
-         )}
-       </div>
-       <div className="footer">
-         {!showResults ? (
-           <button onClick={() => setShowResults(true)}>
-             Calculate My Purity Score
-           </button>
-         ) : (
-           <button onClick={resetTest}>
-             Take Test Again
-           </button>
-         )}
-       </div>
-     </div>
-   </div>
- );
-};
+  return (
+    <div className="container">
+      <div className="card">
+        <div className="header">
+          <h2>Northwestern Purity Test</h2>
+          <img src={logo} alt="Northwestern Logo" className="logo" />
+        </div>
+        <div className="content">
+          {!showResults ? (
+            <div>
+              <p className="instructions">
+                Check off each prompt that applies to you. The fewer checked, the higher your "purity" score!
+              </p>
+              <div className="prompts-grid">
+                {prompts.map((prompt, index) => (
+                  <label key={index} className="prompt-item">
+                    <span className="prompt-number">{index + 1}.</span>
+                    <input
+                      type="checkbox"
+                      checked={selectedPrompts.includes(prompt)}
+                      onChange={() => togglePrompt(prompt)}
+                    />
+                    <span>{prompt}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="results">
+              <h2>Your Northwestern Purity Score</h2>
+              <div className="score">{calculatePurityScore()}</div>
+              <p>Out of {prompts.length} total Northwestern experiences</p>
+              <div className="checked-items">
+                <h3>Your checked experiences:</h3>
+                <div className="checked-list">
+                  {selectedPrompts.map((prompt, index) => (
+                    <div key={index} className="checked-item">{prompt}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="footer">
+          {!showResults ? (
+            <button onClick={() => setShowResults(true)}>
+              Calculate My Purity Score
+            </button>
+          ) : (
+            <button onClick={resetTest}>
+              Take Test Again
+            </button>
+          )}
+        </div>
+      </div>
+      <Analytics />
+    </div>
+  );
+  };
 
 export default NorthwesternPurityTest;

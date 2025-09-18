@@ -2,7 +2,6 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './NorthwesternPurityTest.css';
 import textureBackground from './assets/4ktexture.jpeg';
-import logo from './assets/northwestern-university.svg';
 import { Analytics } from "@vercel/analytics/react";
 
 const ResultsPage = () => {

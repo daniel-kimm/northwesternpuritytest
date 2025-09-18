@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './LandingPage.css';
 import './NorthwesternPurityTest.css';
 import textureBackground from './assets/4ktexture.jpeg';
-import logo from './assets/northwestern-university.svg';
 import { Analytics } from "@vercel/analytics/react";
 
 const LandingPage = () => {

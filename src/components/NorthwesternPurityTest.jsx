@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './NorthwesternPurityTest.css';
-import logo from './assets/northwestern-university.svg';
+import textureBackground from './assets/4ktexture.jpeg';
 import { Analytics } from "@vercel/analytics/react";
 
 const NorthwesternPurityTest = () => {
+  
   const prompts = [
     "Lived in Bobb",
     "Made out with someone at Reza's",
@@ -110,6 +111,33 @@ const NorthwesternPurityTest = () => {
   const [selectedPrompts, setSelectedPrompts] = useState([]);
   const [showResults, setShowResults] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Calculate scroll progress (0 to 1)
+      const maxScroll = documentHeight - windowHeight;
+      const scrollProgress = Math.min(scrollTop / maxScroll, 1);
+      
+      // Adjust vignette opacity based on scroll progress
+      // Start at full opacity (1), fade to 0.2 as user scrolls down
+      const vignetteOpacity = Math.max(1 - scrollProgress * 0.8, 0.2);
+      
+      // Apply the opacity to the vignette
+      const container = document.querySelector('.container');
+      if (container) {
+        container.style.setProperty('--vignette-opacity', vignetteOpacity);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initialize on mount
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const togglePrompt = (prompt) => {
     setSelectedPrompts(prev => 
       prev.includes(prompt) 
@@ -128,11 +156,10 @@ const NorthwesternPurityTest = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{'--texture-bg': `url(${textureBackground})`}}>
       <div className="card">
         <div className="header">
           <h2>Northwestern Purity Test</h2>
-          <img src={logo} alt="Northwestern Logo" className="logo" />
         </div>
         <div className="content">
           {!showResults ? (
@@ -185,6 +212,6 @@ const NorthwesternPurityTest = () => {
       <Analytics />
     </div>
   );
-  };
+};
 
 export default NorthwesternPurityTest;

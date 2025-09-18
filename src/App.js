@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage.jsx';
-import NorthwesternPurityTest from './components/NorthwesternPurityTest.jsx';
+import ResultsPage from './components/ResultsPage.jsx';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/test" element={<NorthwesternPurityTest />} />
+        <Route path="/result" element={<ResultsPage />} />
       </Routes>
     </Router>
   );

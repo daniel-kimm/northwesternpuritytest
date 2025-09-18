@@ -1,1 +1,1 @@
-northwestern purity test
+Northwestern Purity Test
